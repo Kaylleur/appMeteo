@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Weather</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Get weather in your city</h1>
+            <form action="/" method="post">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="city" placeholder="City">
+                    <span class="input-group-btn">
+                        <input type="submit" class="btn btn-primary" name="submit" value="Go">
+                    </span>
+                </div>
+            </form>
+            {% if previsions %}
+                <hr>
+                <h2>{{ previsions.city.name }}</h2>
+                <div class="row">
+                    {% for prevision in previsions.list %}
+
+                        {% if prevision.increment %}
+                            </div>
+                            <hr>
+                            <h3>{{ prevision.date }}</h3>
+                        {% endif %}
+
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                            <center>
+                                <img src="http://openweathermap.org/img/w/{{prevision.weather[0].icon}}.png" alt="" />
+                                <h4>{{ prevision.main.temp }}°C <span class="label label-default">{{ prevision.weather[0].main }}</span></h4>
+                                <h5>{{ prevision.time }}</h5>
+                            </center>
+                        </div>
+
+                        {% if prevision.increment %}
+                            <div class="row">
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </body>
+</html>
